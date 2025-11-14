@@ -49,6 +49,35 @@ export default function Main() {
     }
   };
 
+  const savedSpots = [
+  {
+    name: "Mills Commons",
+    rating: 4,
+    image: require("../assets/images/mills_commons.jpg"),  
+  },
+  {
+    name: "Thode 2nd Floor",
+    rating: 3,
+    image: require("../assets/images/thode_1stfloor.webp"),
+  },
+];
+
+  const renderRatingStars = (rating: number) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      const filled = i <= rating;
+      stars.push(
+        <Text
+          key={i}
+          style={filled ? styles.ratingStarFilled : styles.ratingStarEmpty}
+        >
+          ★
+        </Text>
+      );
+    }
+    return <View style={styles.ratingRow}>{stars}</View>;
+  };
+
   const renderContent = () => {
   if (activeTab === "feed") {
     // FEED layout (unchanged from before)
@@ -151,7 +180,13 @@ export default function Main() {
       >
         <View style={styles.profileContainer}>
           {/* Avatar circle */}
-          <View style={styles.avatar} />
+          <View style={styles.avatar}>
+            <Image
+                source={require("../assets/images/mazen_pfp3.png")} 
+                style={styles.avatarImage}                          
+                resizeMode="cover"                                  
+            />
+          </View>
 
           {/* Username */}
           <Text style={styles.usernameText}>Mazen</Text>
@@ -182,6 +217,41 @@ export default function Main() {
       </ScrollView>
     );
   }
+
+  if (activeTab === "list") {
+    // NEW: YOUR LIST layout
+    return (
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={{ paddingBottom: 16 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.sectionTitle}>Your saved spots</Text>
+
+        <View style={{ gap: 12, marginTop: 8 }}>
+          {savedSpots.map((spot) => (
+            <View key={spot.name} style={styles.listCard}>
+              {/* spot name */}
+              <Text style={styles.listSpotName}>{spot.name}</Text>
+
+              {/* inner “preview” box */}
+              <View style={styles.listPreviewBox}>
+                <Image
+                    source={spot.image} 
+                    style={styles.avatarImage}                          
+                    resizeMode="cover"                                  
+                />
+              </View>
+
+              {/* rating row */}
+              {renderRatingStars(spot.rating)}
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    );
+  }
+
 
 
   // placeholders for Your List / Profile (can refine later)
@@ -430,7 +500,12 @@ const styles = StyleSheet.create({
     borderColor: COLORS.beige,
     backgroundColor: "#3D0E22", // placeholder color; later could be an Image
     marginBottom: 16,
+    overflow: "hidden",    
   },
+  avatarImage: {
+    width: "100%",               
+    height: "100%",              
+},
   usernameText: {
     fontSize: 20,
     fontWeight: "600",
@@ -473,5 +548,38 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "600",
     color: COLORS.yellow,
+  },
+
+  // --- YOUR LIST styles --- //
+  listCard: {
+    backgroundColor: COLORS.cardDark,
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+  },
+  listSpotName: {
+    color: COLORS.beige,
+    fontSize: 15,
+    fontWeight: "600",
+    marginBottom: 8,
+  },
+  listPreviewBox: {
+    height: 80,
+    borderRadius: 10,
+    backgroundColor: "#3D0E22",
+    marginBottom: 8,
+  },
+  ratingRow: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    gap: 4,
+  },
+  ratingStarFilled: {
+    fontSize: 18,
+    color: COLORS.yellow,
+  },
+  ratingStarEmpty: {
+    fontSize: 18,
+    color: "#6B7280", // muted grey-ish star
   },
 });
