@@ -1,16 +1,19 @@
-import React, {useState} from "react";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
 import {
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Image,
 } from "react-native";
-import TypewriterLines from "../components/TypewriterLines";
 import BackgroundBeams from "../components/BackgroundBeams";
+import TypewriterLines from "../components/TypewriterLines";
 
 export default function Index() {
+  const router = useRouter();
+  
   const COLORS = {
     maroon: "#3B0A21",
     beige: "#fff2e8ff",  // tweak to match logo
@@ -29,10 +32,12 @@ export default function Index() {
 
   const handleGetStarted = () => {
     console.log("Get Started pressed");
+    router.push("/signup");
   };
 
   const handleSignIn = () => {
     console.log("Sign In pressed");
+    router.push("/signin");  
   };
 
   return (
@@ -61,6 +66,7 @@ export default function Index() {
               style={[styles.primaryButton,
                  isButtonPressed && styles.primaryButtonPressed
               ]}
+              onPress={handleGetStarted}
               onPressIn={() => setIsButtonPressed(true)}   // CHANGED
               onPressOut={() => setIsButtonPressed(false)} // CHANGED
               activeOpacity={0.55}
@@ -125,6 +131,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 4,
+  },
+  primaryButtonPressed: {
+    borderColor: "#FACC15",     // CHANGED
+    backgroundColor: "#FACC15", // CHANGED
   },
   primaryButtonText: {
     fontSize: 16,
