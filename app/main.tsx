@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput, // NEW
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 type TabKey = "feed" | "search" | "list" | "profile";
@@ -19,8 +20,45 @@ const COLORS = {
   cardMid: "#651233",
 };
 
+type RecommendedKey = "lrWilson" | "hamiltonHall"; // NEW
+
 export default function Main() {
   const [activeTab, setActiveTab] = useState<TabKey>("feed");
+
+  // --- NEW: heart states --- //
+  const [headerLiked, setHeaderLiked] = useState(false);
+
+  const [popularSpots, setPopularSpots] = useState<
+    { name: string; liked: boolean }[]
+  >([
+    { name: "Mills Commons", liked: true },
+    { name: "Thode 1st Floor", liked: false },
+    { name: "Health Sci Library", liked: false },
+  ]);
+
+  const [recommendedLikes, setRecommendedLikes] = useState<
+    Record<RecommendedKey, boolean>
+  >({
+    lrWilson: false,
+    hamiltonHall: false,
+  });
+
+  const [searchQuery, setSearchQuery] = useState(""); // NEW: search typing state
+
+  const togglePopularLike = (name: string) => {
+    setPopularSpots((prev) =>
+      prev.map((spot) =>
+        spot.name === name ? { ...spot, liked: !spot.liked } : spot
+      )
+    );
+  };
+
+  const toggleRecommendedLike = (key: RecommendedKey) => {
+    setRecommendedLikes((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   const renderTabLabel = (key: TabKey) => {
     switch (key) {
@@ -50,17 +88,17 @@ export default function Main() {
   };
 
   const savedSpots = [
-  {
-    name: "Mills Commons",
-    rating: 4,
-    image: require("../assets/images/mills_commons.jpg"),  
-  },
-  {
-    name: "Thode 2nd Floor",
-    rating: 3,
-    image: require("../assets/images/thode_1stfloor.webp"),
-  },
-];
+    {
+      name: "Mills Commons",
+      rating: 4,
+      image: require("../assets/images/mills_commons.jpg"),
+    },
+    {
+      name: "Thode 2nd Floor",
+      rating: 3,
+      image: require("../assets/images/thode_1stfloor.webp"),
+    },
+  ];
 
   const renderRatingStars = (rating: number) => {
     const stars = [];
@@ -79,191 +117,216 @@ export default function Main() {
   };
 
   const renderContent = () => {
-  if (activeTab === "feed") {
-    // FEED layout (unchanged from before)
-    return (
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={{ paddingBottom: 16 }}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* POPULAR section */}
-        <Text style={styles.sectionTitle}>Popular</Text>
-
+    if (activeTab === "feed") {
+      // FEED layout
+      return (
         <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingVertical: 8 }}
+          style={styles.scroll}
+          contentContainerStyle={{ paddingBottom: 16 }}
+          showsVerticalScrollIndicator={false}
         >
-          {[
-            { name: "Mills Commons", liked: true },
-            { name: "Thode 1st Floor", liked: false },
-            { name: "Health Sci Library", liked: false },
-          ].map((spot) => (
-            <View key={spot.name} style={styles.popularCard}>
-              <Text style={styles.popularName}>{spot.name}</Text>
-              <Text style={styles.heartIcon}>{spot.liked ? "♥" : "♡"}</Text>
-            </View>
-          ))}
-        </ScrollView>
+          {/* POPULAR section */}
+          <Text style={styles.sectionTitle}>Popular</Text>
 
-        {/* RECOMMENDED section */}
-        <Text style={[styles.sectionTitle, { marginTop: 16 }]}>
-          Recommended spots
-        </Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingVertical: 8 }}
+          >
+            {popularSpots.map((spot) => (
+              <View key={spot.name} style={styles.popularCard}>
+                <Text style={styles.popularName}>{spot.name}</Text>
 
-        <View style={{ gap: 12, marginTop: 8 }}>
-          {/* LR Wilson Basement card */}
-          <View style={styles.recommendedCard}>
-            <View style={styles.recommendedTopRow}>
-              <Text style={styles.recommendedName}>LR Wilson 3rd Floor</Text>
-              <View style={styles.recommendedIcons}>
-                <Text style={styles.heartIcon}>♡</Text>
-                <Text style={styles.starIcon}>★</Text>
+                {/* NEW: make heart clickable */}
+                <TouchableOpacity
+                  onPress={() => togglePopularLike(spot.name)}
+                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                >
+                  <Text style={styles.heartIcon}>
+                    {spot.liked ? "♥" : "♡"}
+                  </Text>
+                </TouchableOpacity>
               </View>
-            </View>
+            ))}
+          </ScrollView>
 
-            <View style={styles.imagePlaceholder}>
-                <Image
-                        source={require("../assets/images/LR_Wilson_3rdFloor.jpg")}
-                        style={{ width: "100%", height: "100%" }} 
-                        resizeMode="cover"                        
-                />
-            </View>
-          </View>
-
-          {/* Hamilton Hall card */}
-          <View style={styles.recommendedCard}>
-            <View style={styles.recommendedTopRow}>
-              <Text style={styles.recommendedName}>Hamilton Hall 2nd Floor</Text>
-              <View style={styles.recommendedIcons}>
-                <Text style={styles.heartIcon}>♡</Text>
-                <Text style={styles.starIcon}>★</Text>
-              </View>
-            </View>
-
-            <View style={styles.imagePlaceholder}>
-                <Image
-                    source={require("../assets/images/hamilton_hall.jpg")}
-                    style={{ width: "100%", height: "100%" }} 
-                    resizeMode="cover"                        
-                />
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    );
-  }
-
-  if (activeTab === "search") {
-    // NEW: SEARCH layout
-    return (
-      <View style={styles.searchContainer}>
-        <View style={styles.searchCard}>
-          <Text style={styles.searchIcon}>🔍</Text>
-          <Text style={styles.searchPlaceholder}>
-            Search spots, rooms, etc.
+          {/* RECOMMENDED section */}
+          <Text style={[styles.sectionTitle, { marginTop: 16 }]}>
+            Recommended spots
           </Text>
-        </View>
-        {/* later you can add results under here */}
-      </View>
-    );
-  }
 
-  
-  if (activeTab === "profile") {
-    return (
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={{ paddingBottom: 24 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.profileContainer}>
-          {/* Avatar circle */}
-          <View style={styles.avatar}>
-            <Image
-                source={require("../assets/images/mazen_pfp3.png")} 
-                style={styles.avatarImage}                          
-                resizeMode="cover"                                  
+          <View style={{ gap: 12, marginTop: 8 }}>
+            {/* LR Wilson 3rd Floor card */}
+            <View style={styles.recommendedCard}>
+              <View style={styles.recommendedTopRow}>
+                <Text style={styles.recommendedName}>LR Wilson 3rd Floor</Text>
+                <View style={styles.recommendedIcons}>
+                  {/* NEW: clickable heart */}
+                  <TouchableOpacity
+                    onPress={() => toggleRecommendedLike("lrWilson")}
+                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  >
+                    <Text style={styles.heartIcon}>
+                      {recommendedLikes.lrWilson ? "♥" : "♡"}
+                    </Text>
+                  </TouchableOpacity>
+                  <Text style={styles.starIcon}>★</Text>
+                </View>
+              </View>
+
+              <View style={styles.imagePlaceholder}>
+                <Image
+                  source={require("../assets/images/LR_Wilson_3rdFloor.jpg")}
+                  style={{ width: "100%", height: "100%" }}
+                  resizeMode="cover"
+                />
+              </View>
+            </View>
+
+            {/* Hamilton Hall card */}
+            <View style={styles.recommendedCard}>
+              <View style={styles.recommendedTopRow}>
+                <Text style={styles.recommendedName}>
+                  Hamilton Hall 2nd Floor
+                </Text>
+                <View style={styles.recommendedIcons}>
+                  {/* NEW: clickable heart */}
+                  <TouchableOpacity
+                    onPress={() => toggleRecommendedLike("hamiltonHall")}
+                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  >
+                    <Text style={styles.heartIcon}>
+                      {recommendedLikes.hamiltonHall ? "♥" : "♡"}
+                    </Text>
+                  </TouchableOpacity>
+                  <Text style={styles.starIcon}>★</Text>
+                </View>
+              </View>
+
+              <View style={styles.imagePlaceholder}>
+                <Image
+                  source={require("../assets/images/hamilton_hall.jpg")}
+                  style={{ width: "100%", height: "100%" }}
+                  resizeMode="cover"
+                />
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      );
+    }
+
+    if (activeTab === "search") {
+      // SEARCH layout – now with actual TextInput
+      return (
+        <View style={styles.searchContainer}>
+          <View style={styles.searchCard}>
+            <Text style={styles.searchIcon}>🔍</Text>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search spots, rooms, etc."
+              placeholderTextColor={COLORS.beige}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              autoCapitalize="none"
+              autoCorrect={false}
             />
           </View>
-
-          {/* Username */}
-          <Text style={styles.usernameText}>Mazen</Text>
-
-          {/* Stats */}
-          <Text style={styles.statsTitle}>Stats</Text>
-
-          <View style={styles.statsRow}>
-            <View className="stat" style={styles.statCard}>
-              <Text style={styles.statIcon}>📍</Text>
-              <Text style={styles.statLabel}>Studied in</Text>
-              <Text style={styles.statValue}>20 seats</Text>
-            </View>
-
-            <View style={styles.statCard}>
-              <Text style={styles.statIcon}>✨</Text>
-              <Text style={styles.statLabel}>Created</Text>
-              <Text style={styles.statValue}>5 new spots</Text>
-            </View>
-
-            <View style={styles.statCard}>
-              <Text style={styles.statIcon}>⭐</Text>
-              <Text style={styles.statLabel}>Rated</Text>
-              <Text style={styles.statValue}>7 seats</Text>
-            </View>
-          </View>
+          {/* You can later show filtered results under here using searchQuery */}
         </View>
-      </ScrollView>
-    );
-  }
+      );
+    }
 
-  if (activeTab === "list") {
-    // NEW: YOUR LIST layout
-    return (
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={{ paddingBottom: 16 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <Text style={styles.sectionTitle}>Your saved spots</Text>
+    if (activeTab === "profile") {
+      return (
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={{ paddingBottom: 24 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.profileContainer}>
+            {/* Avatar circle */}
+            <View style={styles.avatar}>
+              <Image
+                source={require("../assets/images/mazen_pfp3.png")}
+                style={styles.avatarImage}
+                resizeMode="cover"
+              />
+            </View>
 
-        <View style={{ gap: 12, marginTop: 8 }}>
-          {savedSpots.map((spot) => (
-            <View key={spot.name} style={styles.listCard}>
-              {/* spot name */}
-              <Text style={styles.listSpotName}>{spot.name}</Text>
+            {/* Username */}
+            <Text style={styles.usernameText}>Mazen</Text>
 
-              {/* inner “preview” box */}
-              <View style={styles.listPreviewBox}>
-                <Image
-                    source={spot.image} 
-                    style={styles.avatarImage}                          
-                    resizeMode="cover"                                  
-                />
+            {/* Stats */}
+            <Text style={styles.statsTitle}>Stats</Text>
+
+            <View style={styles.statsRow}>
+              <View className="stat" style={styles.statCard}>
+                <Text style={styles.statIcon}>📍</Text>
+                <Text style={styles.statLabel}>Studied in</Text>
+                <Text style={styles.statValue}>20 seats</Text>
               </View>
 
-              {/* rating row */}
-              {renderRatingStars(spot.rating)}
+              <View style={styles.statCard}>
+                <Text style={styles.statIcon}>✨</Text>
+                <Text style={styles.statLabel}>Created</Text>
+                <Text style={styles.statValue}>5 new spots</Text>
+              </View>
+
+              <View style={styles.statCard}>
+                <Text style={styles.statIcon}>⭐</Text>
+                <Text style={styles.statLabel}>Rated</Text>
+                <Text style={styles.statValue}>7 seats</Text>
+              </View>
             </View>
-          ))}
-        </View>
-      </ScrollView>
+          </View>
+        </ScrollView>
+      );
+    }
+
+    if (activeTab === "list") {
+      // YOUR LIST layout
+      return (
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={{ paddingBottom: 16 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={styles.sectionTitle}>Your saved spots</Text>
+
+          <View style={{ gap: 12, marginTop: 8 }}>
+            {savedSpots.map((spot) => (
+              <View key={spot.name} style={styles.listCard}>
+                {/* spot name */}
+                <Text style={styles.listSpotName}>{spot.name}</Text>
+
+                {/* inner “preview” box */}
+                <View style={styles.listPreviewBox}>
+                  <Image
+                    source={spot.image}
+                    style={styles.avatarImage}
+                    resizeMode="cover"
+                  />
+                </View>
+
+                {/* rating row */}
+                {renderRatingStars(spot.rating)}
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      );
+    }
+
+    // fallback
+    return (
+      <View style={styles.placeholderContainer}>
+        <Text style={styles.placeholderText}>
+          {renderTabLabel(activeTab)} screen coming soon.
+        </Text>
+      </View>
     );
-  }
-
-
-
-  // placeholders for Your List / Profile (can refine later)
-  return (
-    <View style={styles.placeholderContainer}>
-      <Text style={styles.placeholderText}>
-        {renderTabLabel(activeTab)} screen coming soon.
-      </Text>
-    </View>
-  );
-};
-
+  };
 
   const tabOrder: TabKey[] = ["feed", "search", "list", "profile"];
 
@@ -277,8 +340,14 @@ export default function Main() {
             style={styles.logoImage}
             resizeMode="contain"
           />
-          <TouchableOpacity style={styles.headerIconButton}>
-            <Text style={styles.headerIconText}>♡</Text>
+          <TouchableOpacity
+            style={styles.headerIconButton}
+            onPress={() => setHeaderLiked((prev) => !prev)}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.headerIconText}>
+              {headerLiked ? "♥" : "♡"}
+            </Text>
           </TouchableOpacity>
         </View>
 
@@ -296,19 +365,11 @@ export default function Main() {
                 onPress={() => setActiveTab(key)}
                 activeOpacity={0.85}
               >
-                <Text
-                  style={[
-                    styles.tabIcon,
-                    active && styles.tabIconActive,
-                  ]}
-                >
+                <Text style={[styles.tabIcon, active && styles.tabIconActive]}>
                   {renderTabIcon(key)}
                 </Text>
                 <Text
-                  style={[
-                    styles.tabLabel,
-                    active && styles.tabLabelActive,
-                  ]}
+                  style={[styles.tabLabel, active && styles.tabLabelActive]}
                 >
                   {renderTabLabel(key)}
                 </Text>
@@ -412,6 +473,7 @@ const styles = StyleSheet.create({
   recommendedIcons: {
     flexDirection: "row",
     gap: 12,
+    alignItems: "center",
   },
   starIcon: {
     color: COLORS.yellow,
@@ -422,6 +484,7 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 12,
     backgroundColor: "#3D0E22",
+    overflow: "hidden",
   },
   // Placeholders for other tabs
   placeholderContainer: {
@@ -463,7 +526,7 @@ const styles = StyleSheet.create({
     color: COLORS.beige,
     fontWeight: "600",
   },
-  // --- SEARCH styles ---
+  // --- SEARCH styles --- //
   searchContainer: {
     flex: 1,
     paddingTop: 16,
@@ -483,11 +546,16 @@ const styles = StyleSheet.create({
     color: COLORS.beige,
     marginRight: 8,
   },
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    color: COLORS.beige,
+  },
   searchPlaceholder: {
     fontSize: 14,
     color: COLORS.beige,
   },
-    // --- PROFILE styles ---  
+  // --- PROFILE styles --- //
   profileContainer: {
     alignItems: "center",
     marginTop: 24,
@@ -498,14 +566,14 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderWidth: 2,
     borderColor: COLORS.beige,
-    backgroundColor: "#3D0E22", // placeholder color; later could be an Image
+    backgroundColor: "#3D0E22",
     marginBottom: 16,
-    overflow: "hidden",    
+    overflow: "hidden",
   },
   avatarImage: {
-    width: "100%",               
-    height: "100%",              
-},
+    width: "100%",
+    height: "100%",
+  },
   usernameText: {
     fontSize: 20,
     fontWeight: "600",
@@ -568,6 +636,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#3D0E22",
     marginBottom: 8,
+    overflow: "hidden",
   },
   ratingRow: {
     flexDirection: "row",
