@@ -1,115 +1,131 @@
 # SeatSeeker
 
-_No more walking in circles... Find your seat now._
+<img width="474" height="626" alt="seat-seeker-logo" src="https://github.com/user-attachments/assets/626f2549-71e6-4c80-884c-b6cec5bf91e3" />
 
-SeatSeeker is a mobile-first study place review app that helps McMaster students quickly discover, evaluate, and save study spots across campus (e.g., quiet vs. collaborative, near outlets, close to food).:contentReference[oaicite:0]{index=0}
+_No more walking in circles... find your seat now._
 
-The app was designed and prototyped as a React Native + Expo project, with a consistent maroon visual identity inspired by McMaster branding and a custom SeatSeeker logo.
+SeatSeeker is a mobile-first app built with **React Native + Expo** that helps McMaster students discover, evaluate, and save study spots across campus. Instead of wandering between libraries and buildings hoping to find a good seat, students can quickly see popular spaces, read community ratings, and build a personalized list of favourite spots.
 
 ---
 
-## Live Demo (GitHub Pages)
+## Live Demo
 
-You can explore the interactive prototype on the web:
+You can try the web version of the prototype here:
 
-**Live prototype:** https://mazen1004.github.io/SeatSeeker/ :contentReference[oaicite:1]{index=1}  
+👉 **GitHub Pages:** https://mazen1004.github.io/SeatSeeker/
 
-For the best experience, open the link in a desktop browser and switch to a mobile viewport (e.g., **390 × 844** iPhone size in DevTools).:contentReference[oaicite:2]{index=2}
+For the best experience, open the link in a desktop browser and switch to a mobile viewport (e.g. iPhone 13 size in DevTools).
 
 ---
 
 ## Project Purpose
 
-Finding a good place to study on a large campus can be surprisingly hard. Students waste time wandering between libraries and buildings, hoping to find a seat that matches their needs (quiet vs. collaborative, outlets, lighting, etc.).:contentReference[oaicite:3]{index=3}
+Finding a place to study on a large campus is harder than it should be. Students care about things like:
 
-SeatSeeker was built to:
+- Is it **quiet or loud**?
+- Are there **outlets** nearby?
+- Is there **space for a group**?
+- How **busy** does it get during the day?
 
-- **Reduce time spent wandering** by surfacing popular and recommended spots.:contentReference[oaicite:4]{index=4}  
-- **Match spaces to study style** by exposing attributes like noise level, seating type, and amenities.:contentReference[oaicite:5]{index=5}  
-- **Help students remember good spots** via a personalized “Your List” of saved and visited places.:contentReference[oaicite:6]{index=6}  
-- **Leverage community knowledge** using ratings and recommendations from other students.:contentReference[oaicite:7]{index=7}  
+SeatSeeker was designed to:
 
-The project focuses on **interaction design quality**: clear mappings, strong signifiers, and consistent navigation using principles from Norman and Gestalt psychology.:contentReference[oaicite:8]{index=8}
+- **Reduce time spent wandering** by surfacing popular and recommended spots.
+- **Match spaces to study style** using attributes like noise level, seating type, and amenities.
+- **Help students remember good spots** using a personalized “Your List” of saved/visited places.
+- **Leverage community knowledge** with simple rating flows and shared feedback.
+
+Beyond just “building an app,” this project intentionally applies **interaction design principles** (Norman’s principles, Gestalt laws, conceptual models) to create a clear, learnable, and visually consistent interface.
 
 ---
 
 ## Key Features
 
-- 📍 **Study place listings**  
-  Browse curated study spots across campus (indoor and outdoor) with names, locations, photos, and ratings.:contentReference[oaicite:9]{index=9}  
+- 📍 **Study Spot Listings**  
+  Browse curated study spots (e.g., Mills, Thode, Student Centre) with photos, descriptions, and ratings.
 
-- ❤️ **“Your List” – favourites & visited**  
-  Save your favourite spots and keep track of places you’ve studied in, so you can quickly return to them later.:contentReference[oaicite:10]{index=10}  
+- ❤️ **“Your List” – Saved & Visited Spots**  
+  Save your favourite study locations and keep track of where you’ve studied, so you can come back quickly.
 
-- 🔍 **Search & filter**  
-  Search by building or type (e.g., _“Mills”, “cafe”_) and filter by factors that actually matter to students (noise level, seating style, etc.).:contentReference[oaicite:11]{index=11}  
+- 🔍 **Search & Explore**  
+  Search for spots by name or building and scroll through recommended locations that fit different study needs.
 
-- ⭐ **Fast rating flow**  
-  View community ratings and submit your own rating with minimal friction to keep feedback lightweight and frequent.:contentReference[oaicite:12]{index=12}  
+- ⭐ **Simple Rating System**  
+  Rate spots with a lightweight, fast interaction that encourages frequent feedback.
 
-- ✨ **Recommendations & popular spots**  
-  See popular study spots and get recommendations based on where you’ve studied and what you like.:contentReference[oaicite:13]{index=13}  
+- ✨ **Popular & Recommended Sections**  
+  Discover trending spots and personalized suggestions based on places you’ve saved.
 
-- 📊 **Profile & study stats**  
-  View simple gamified stats such as “seats studied in”, “spots created”, and “seats rated”, giving a sense of progress and contribution.:contentReference[oaicite:14]{index=14}  
+- 👤 **Profile & Study Stats**  
+  View a profile screen with a custom avatar and simple stats like:
+  - Seats studied in  
+  - Spots created  
+  - Seats rated  
 
 ---
 
 ## Screenshots
 
-_(Update file paths to match your repo — e.g., `./screenshots/...` or `./assets/images/...`.)_
+> Make sure your screenshots are stored under `./screenshots/` in your repo with these filenames, or adjust the paths to match your structure.
 
-### Onboarding & Auth
+### Onboarding & Authentication
 
-- **S1 – Get Started**  
-  ![S1 – Get Started screen](./screenshots/S1_get_started.png)  
-  Animated tagline and clear call-to-action (“Get Started” / “Sign in”) against a maroon background with the SeatSeeker logo.:contentReference[oaicite:15]{index=15}  
+**S1 – Get Started**
 
-- **S2 – Sign Up**  
-  ![S2 – Sign Up screen](./screenshots/S2_sign_up.png)  
+![S1 – Get Started screen](./screenshots/S1.png)
 
-- **S3 – Sign In**  
-  ![S3 – Sign In screen](./screenshots/S3_sign_in.png)  
+**S2 – Sign Up**
 
-Both auth screens reuse the same visual identity to maintain a strong conceptual model and consistency.:contentReference[oaicite:16]{index=16}  
+![S2 – Sign Up screen](./screenshots/S2.png)
+
+**S3 – Sign In**
+
+![S3 – Sign In screen](./screenshots/S3.png)
+
+---
 
 ### Main App Flow
 
-- **S4 – Feed (Popular & Recommended)**  
-  ![S4 – Feed screen](./screenshots/S4_feed.png)  
-  Default tab after login, with popular spots in a horizontal carousel and recommended spots in large vertical cards.:contentReference[oaicite:17]{index=17}  
+**S4 – Feed (Popular & Recommended)**  
+The default tab after login. Shows popular study spots in a horizontal carousel and recommended spots in larger vertical cards.
 
-- **S5 – Search**  
-  ![S5 – Search screen](./screenshots/S5_search.png)  
-  Large pill-shaped search bar at the top, following common mobile patterns.:contentReference[oaicite:18]{index=18}  
+![S4 – Feed screen](./screenshots/S4.png)
 
-- **S6 – Your List**  
-  ![S6 – Your List screen](./screenshots/S6_your_list.png)  
-  Saved spots shown as cards with thumbnails and user ratings, visually consistent with the Feed for an easy mental model.:contentReference[oaicite:19]{index=19}  
+**S5 – Search**  
+Search bar and list of results based on your query and interests.
 
-- **S7 – Profile & Study Stats**  
-  ![S7 – Profile screen](./screenshots/S7_profile.png)  
-  Avatar, username, and stat cards (“seats studied”, “spots created”, “seats rated”) to visualize engagement and campus exploration.:contentReference[oaicite:20]{index=20}  
+![S5 – Search screen](./screenshots/S5.png)
+
+**S6 – Your List**  
+Saved spots with thumbnails and ratings, visually consistent with the feed so it feels familiar.
+
+![S6 – Your List screen](./screenshots/S6.png)
+
+**S7 – Profile & Study Stats**  
+Avatar, username, and stat cards that gamify exploring campus and contributing ratings.
+
+![S7 – Profile screen](./screenshots/S7.png)
 
 ---
 
 ## Tech Stack
 
-- **Frontend:** React Native + Expo
+- **Framework:** React Native
+- **Tooling:** Expo
+- **Language:** TypeScript / JavaScript
 - **Navigation:** Bottom tab navigation (Feed, Search, Your List, Profile)
-- **Styling:** Custom design system with a maroon / beige palette, inspired by McMaster branding
-- **Deployment:**  
-  - Local development via Expo  
-  - Static web export deployed to **GitHub Pages**
+- **Styling:** Custom design system with a maroon / beige palette inspired by McMaster branding
+- **Deployment:**
+  - Local development with Expo
+  - Static web export deployed via **GitHub Pages**
 
 ---
 
-## Getting Started (Local Expo Setup)
+## Getting Started (Run Locally with Expo)
 
-These instructions assume you’re using **Node.js ≥ 18** and **npm** (or `yarn`).
+These steps show how to set up the project locally using Expo.
 
-### 1. Clone the repo
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/SeatSeeker.git
+git clone https://github.com/mazen1004/SeatSeeker.git
 cd SeatSeeker
