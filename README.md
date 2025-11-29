@@ -152,7 +152,7 @@ npx expo start
 Working on SeatSeeker helped me grow in both UI/UX design and front-end engineering:
 
 - **Bridging design and implementation**
-I started from user needs (students trying to find good study spaces) and translated them into screens, flows, and interactions.
+  I started from user needs (students trying to find good study spaces) and translated them into screens, flows, and interactions.
 
 - **Applying interaction design principles**
   I deliberately used:
