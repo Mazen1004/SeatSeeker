@@ -73,17 +73,17 @@ Beyond just “building an app,” this project intentionally applies **interact
 
 **S1 – Get Started**
 
-<img width="1206" height="2622" alt="S1" src="https://github.com/user-attachments/assets/401d61d8-0358-4a83-9196-85ae7eb4ad74" />
+<img width="302" height="656" alt="S1" src="https://github.com/user-attachments/assets/401d61d8-0358-4a83-9196-85ae7eb4ad74" />
 
 
 **S2 – Sign Up**
 
-<img width="1206" height="2622" alt="S2" src="https://github.com/user-attachments/assets/76079b4f-a5b5-4ed3-b236-8c7252e351a2" />
+<img width="302" height="656" alt="S2" src="https://github.com/user-attachments/assets/76079b4f-a5b5-4ed3-b236-8c7252e351a2" />
 
 
 **S3 – Sign In**
 
-<img width="1206" height="2622" alt="S3" src="https://github.com/user-attachments/assets/8183ebf3-ce32-4d5b-ade0-95ab95aae16f" />
+<img width="302" height="656" alt="S3" src="https://github.com/user-attachments/assets/8183ebf3-ce32-4d5b-ade0-95ab95aae16f" />
 
 
 ---
@@ -93,24 +93,24 @@ Beyond just “building an app,” this project intentionally applies **interact
 **S4 – Feed (Popular & Recommended)**  
 The default tab after login. Shows popular study spots in a horizontal carousel and recommended spots in larger vertical cards.
 
-<img width="1206" height="2622" alt="S4" src="https://github.com/user-attachments/assets/8a373cf0-757b-4d0c-8cce-4b84d3005335" />
+<img width="302" height="656" alt="S4" src="https://github.com/user-attachments/assets/8a373cf0-757b-4d0c-8cce-4b84d3005335" />
 
 **S5 – Search**  
 Search bar and list of results based on your query and interests.
 
-<img width="1206" height="2622" alt="S5" src="https://github.com/user-attachments/assets/080a6545-cc1c-4031-83cc-8b7ed3e52915" />
+<img width="302" height="656" alt="S5" src="https://github.com/user-attachments/assets/080a6545-cc1c-4031-83cc-8b7ed3e52915" />
 
 
 **S6 – Your List**  
 Saved spots with thumbnails and ratings, visually consistent with the feed so it feels familiar.
 
-<img width="1206" height="2622" alt="S6" src="https://github.com/user-attachments/assets/de2a207a-f8b4-4c42-bab2-71712dba6a2b" />
+<img width="302" height="656" alt="S6" src="https://github.com/user-attachments/assets/de2a207a-f8b4-4c42-bab2-71712dba6a2b" />
 
 
 **S7 – Profile & Study Stats**  
 Avatar, username, and stat cards that gamify exploring campus and contributing ratings.
 
-<img width="1206" height="2622" alt="S7" src="https://github.com/user-attachments/assets/04782b06-db9c-422e-83a1-c2fc54dea108" />
+<img width="302" height="656" alt="S7" src="https://github.com/user-attachments/assets/04782b06-db9c-422e-83a1-c2fc54dea108" />
 
 
 ---
