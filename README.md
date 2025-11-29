@@ -2,7 +2,7 @@
 
 <img width="274" height="426" alt="seat-seeker-logo" src="https://github.com/user-attachments/assets/626f2549-71e6-4c80-884c-b6cec5bf91e3" />
 
-This is a project for 4HC3 (Frontend course) at McMaster University.
+This is my project for 4HC3 (Frontend course) at McMaster University I choose to create a frontend app for to allow students at McMaster to find study spots, full details below:
 
 _No more walking in circles... find your seat now._
 
@@ -66,8 +66,6 @@ Beyond just “building an app,” this project intentionally applies **interact
 ---
 
 ## Screenshots
-
-> Make sure your screenshots are stored under `./screenshots/` in your repo with these filenames, or adjust the paths to match your structure.
 
 ### Onboarding & Authentication
 
@@ -137,3 +135,40 @@ These steps show how to set up the project locally using Expo.
 ```bash
 git clone https://github.com/mazen1004/SeatSeeker.git
 cd SeatSeeker
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the Expo Development Server
+```bash
+npx expo start
+```
+
+## What I Learned
+Working on SeatSeeker helped me grow in both UI/UX design and front-end engineering:
+
+- **Bridging design and implementation**
+I started from user needs (students trying to find good study spaces) and translated them into screens, flows, and interactions.
+
+- **Applying interaction design principles**
+  I deliberately used:
+  -Clear signifiers (buttons, icons, consistent card layouts)
+  -Feedback (visual states for selected tabs, favourites, and ratings)
+  -Constraints and mappings (simple bottom navigation, clear page purposes)
+  -Gestalt principles (proximity, similarity, alignment) so groups of elements read as cohesive units.
+
+- **Designing a consistent system**
+  I created a simple design language:
+  -Shared color palette (maroon / beige / gold)
+  -Reusable cards and components
+  -Repeated patterns across Feed, Search, Your List, and Profile so users can transfer knowledge between screens.
+
+- **Hands-on Expo + React Native experience**
+  I learned how to:
+  -Set up an Expo project and run it on web and mobile.
+  -Build responsive layouts that still look good on different screen sizes.
+  -Export a React Native web bundle and deploy it on GitHub Pages.
